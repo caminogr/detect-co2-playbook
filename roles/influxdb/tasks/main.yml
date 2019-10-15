@@ -1,0 +1,20 @@
+---
+- block:
+  - name: Ensure influxdb apt key is present
+    apt_key:
+      url: https://repos.influxdata.com/influxdb.key
+      state: present
+
+  - name: ensure influxdb apt repository is present
+    apt_repository:
+      repo: deb https://repos.influxdata.com/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable
+      update_cache: yes
+      state: present
+    become: yes
+
+  - name: Ensure influxdb is installed
+    become: true
+    apt:
+      name: influxdb
+      state: present
+  tags: influxdb
