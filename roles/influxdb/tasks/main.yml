@@ -17,4 +17,26 @@
     apt:
       name: influxdb
       state: present
-  tags: influxdb
+  tags: install-influxdb
+
+- block:
+  - name: Install Pip
+    apt: 
+      name: python-pip
+      state: present
+    become: yes
+    retries: 5
+    delay: 5
+
+  - name: Install client for InfluxDB
+    become: yes
+    pip: 
+      name: influxdb
+    retries: 5
+    delay: 2
+
+  - name: Create database
+    influxdb_database:
+        hostname: "localhost"
+        database_name: "home"
+  tags: prepare-db
