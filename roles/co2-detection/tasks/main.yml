@@ -14,6 +14,12 @@
       name: 
         - mh-z19
 
+  - name: Install jq
+    apt:
+      name: jq
+      state: latest
+    become: yes
+
   - name: Copy cron script
     become: yes
     copy:

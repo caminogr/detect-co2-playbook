@@ -1,4 +1,5 @@
 #!/bin/sh
 
-value=$(sudo python -m ~/mh_z19/mh_z19.py)
-curl -i -XPOST "http://localhost:8086/write?db=home" --data-binary "co2, field1=${value}"
+co2_value=$(sudo python -m mh_z19 --all | jq .co2)
+temperature_value=$(sudo python -m mh_z19 --all | jq .temperature)
+curl -i -XPOST "http://localhost:8086/write?db=home" --data-binary "co2, value=${co2_value} temperature, value=${temperature_value}"
