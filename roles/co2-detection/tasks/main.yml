@@ -1,0 +1,41 @@
+---
+- block:
+  - git:
+      repo: 'https://github.com/UedaTakeyuki/slider.git'
+      dest: ~/slider
+
+  - name: Install client for InfluxDB
+    become: yes
+    pip: 
+      name: 
+        - pyserial
+        - redis
+        - getrpimodel
+
+  - name: Copy cron script
+    copy:
+      src: get-concentration.sh
+      dest: /root/get-concentration.sh
+      mode: '0755'
+
+  - name: Get co2 concentration
+    cron:
+      name: 'get co2 concentration'
+      minute: 1
+      job: '/root/get-concentration.sh'
+
+
+  - name: Create directory for log
+    file:
+      path: /home/pi/LOG
+      recurse: true
+      state: directory
+      mode: "744"
+    tags: touch
+
+  - name: Touch a log file
+    file:
+      path: /home/pi/LOG/slider.log
+      state: touch
+      mode: "744"
+  tags: co2-detection
