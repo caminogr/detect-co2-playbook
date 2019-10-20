@@ -3,39 +3,29 @@
   - git:
       repo: 'https://github.com/UedaTakeyuki/mh-z19.git'
       dest: ~/mh-z19
+    become: yes
 
-  - name: Install client for InfluxDB
+  - name: Run setup
+    shell: "{{ ansible_env.HOME }}/mh-z19/setup.sh"
+
+  - name: Install sensor module
     become: yes
     pip: 
       name: 
-        - pyserial
-        - redis
-        - getrpimodel
+        - mh-z19
 
   - name: Copy cron script
+    become: yes
     copy:
       src: get-concentration.sh
-      dest: /root/get-concentration.sh
+      dest: "{{ ansible_env.HOME }}/get-concentration.sh"
       mode: '0755'
 
   - name: Get co2 concentration
+    become: yes
     cron:
       name: 'get co2 concentration'
       minute: 1
-      job: '/root/get-concentration.sh'
+      job: "{{ ansible_env.HOME }}/get-concentration.sh"
 
-
-  - name: Create directory for log
-    file:
-      path: /home/pi/LOG
-      recurse: true
-      state: directory
-      mode: "744"
-    tags: touch
-
-  - name: Touch a log file
-    file:
-      path: /home/pi/LOG/slider.log
-      state: touch
-      mode: "744"
   tags: co2-detection
