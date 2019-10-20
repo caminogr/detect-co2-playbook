@@ -4,6 +4,7 @@
     apt_key:
       url: https://repos.influxdata.com/influxdb.key
       state: present
+    become: yes
 
   - name: ensure influxdb apt repository is present
     apt_repository:
@@ -17,6 +18,7 @@
     apt:
       name: influxdb
       state: present
+    become: yes
   tags: install-influxdb
 
 - block:
@@ -32,8 +34,6 @@
     become: yes
     pip: 
       name: influxdb
-    retries: 5
-    delay: 2
 
   - name: Create database
     influxdb_database:
