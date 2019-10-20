@@ -1,8 +1,8 @@
 ---
 - block:
   - git:
-      repo: 'https://github.com/UedaTakeyuki/slider.git'
-      dest: ~/slider
+      repo: 'https://github.com/UedaTakeyuki/mh-z19.git'
+      dest: ~/mh-z19
 
   - name: Install client for InfluxDB
     become: yes
