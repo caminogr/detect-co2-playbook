@@ -3,10 +3,10 @@
   - git:
       repo: 'https://github.com/UedaTakeyuki/mh-z19.git'
       dest: ~/mh-z19
-    become: yes
 
-  - name: Run setup
-    shell: "{{ ansible_env.HOME }}/mh-z19/setup.sh"
+  # - name: Run setup
+    # shell: "{{ ansible_env.HOME }}/mh-z19/setup.sh"
+    # become: yes
 
   - name: Install sensor module
     become: yes
