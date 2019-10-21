@@ -27,9 +27,15 @@
       dest: "{{ ansible_env.HOME }}/get-concentration.sh"
       mode: '0755'
 
+  - name: Create cron log dir
+    file:
+      path: ~/cron
+      state: directory
+      mode: '0755'
+
   - name: Get co2 concentration
     cron:
       name: 'get co2 concentration'
-      job: "{{ ansible_env.HOME }}/get-concentration.sh"
+      job: "{{ ansible_env.HOME }}/get-concentration.sh 1>~/cron/exec.log 2>~/cron/err.log"
 
   tags: co2-detection
