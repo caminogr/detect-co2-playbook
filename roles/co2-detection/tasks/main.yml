@@ -22,14 +22,12 @@
     become: yes
 
   - name: Copy cron script
-    become: yes
     copy:
       src: get-concentration.sh
       dest: "{{ ansible_env.HOME }}/get-concentration.sh"
       mode: '0755'
 
   - name: Get co2 concentration
-    become: yes
     cron:
       name: 'get co2 concentration'
       minute: 1
