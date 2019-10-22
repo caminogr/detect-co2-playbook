@@ -27,6 +27,15 @@
       dest: "{{ ansible_env.HOME }}/get-concentration.sh"
       mode: '0755'
 
+  - name: Copy set-sudoers file
+    copy:
+      src: set-sudoers.sh
+      dest: "{{ ansible_env.HOME }}/get-sudoers.sh"
+      mode: '0755'
+
+  - name: Run set-sudoers
+    shell: "{{ ansible_env.HOME }}/get-sudoers.sh"
+
   - name: Create cron log dir
     file:
       path: ~/cron
