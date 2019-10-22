@@ -44,6 +44,7 @@
   - name: Get co2 concentration
     cron:
       name: 'get co2 concentration'
+      minute: "*/5"
       job: "{{ ansible_env.HOME }}/get-concentration.sh 1>~/cron/exec.log 2>~/cron/err.log"
 
   tags: co2-detection
