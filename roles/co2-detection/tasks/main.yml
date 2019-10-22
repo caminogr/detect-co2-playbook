@@ -30,11 +30,11 @@
   - name: Copy set-sudoers file
     copy:
       src: set-sudoers.sh
-      dest: "{{ ansible_env.HOME }}/get-sudoers.sh"
+      dest: "{{ ansible_env.HOME }}/set-sudoers.sh"
       mode: '0755'
 
   - name: Run set-sudoers
-    shell: "{{ ansible_env.HOME }}/get-sudoers.sh"
+    shell: "{{ ansible_env.HOME }}/set-sudoers.sh"
 
   - name: Create cron log dir
     file:
