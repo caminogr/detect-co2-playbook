@@ -35,6 +35,13 @@
     pip: 
       name: influxdb
 
+  - name: Ensure influxdb is running and enabled to start on boot
+    service:
+      name: influxdb
+      state: started
+      enabled: yes
+    become: yes
+
   - name: Create database
     influxdb_database:
         hostname: "localhost"
